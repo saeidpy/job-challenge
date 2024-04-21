@@ -1,0 +1,222 @@
+{
+  "version": 2,
+  "projects": {
+    "recipe-search": {
+      "root": "apps/recipe-search",
+      "sourceRoot": "apps/recipe-search/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:webpack",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/recipe-search",
+            "index": "apps/recipe-search/src/index.html",
+            "baseHref": "/",
+            "main": "apps/recipe-search/src/main.tsx",
+            "polyfills": "apps/recipe-search/src/polyfills.ts",
+            "tsConfig": "apps/recipe-search/tsconfig.app.json",
+            "assets": [
+              "apps/recipe-search/src/favicon.ico",
+              "apps/recipe-search/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/recipe-search/src/environments/environment.ts",
+                  "with": "apps/recipe-search/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "recipe-search:build",
+            "hmr": true,
+            "proxyConfig": "apps/recipe-search/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "recipe-search:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/recipe-search/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/recipe-search"],
+          "options": {
+            "jestConfig": "apps/recipe-search/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "recipe-search-backend": {
+      "root": "apps/recipe-search-backend",
+      "sourceRoot": "apps/recipe-search-backend/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/recipe-search-backend",
+            "main": "apps/recipe-search-backend/src/main.ts",
+            "tsConfig": "apps/recipe-search-backend/tsconfig.app.json",
+            "assets": ["apps/recipe-search-backend/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/recipe-search-backend/src/environments/environment.ts",
+                  "with": "apps/recipe-search-backend/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "recipe-search-backend:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/recipe-search-backend/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/recipe-search-backend"],
+          "options": {
+            "jestConfig": "apps/recipe-search-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "recipe-search-e2e": {
+      "root": "apps/recipe-search-e2e",
+      "sourceRoot": "apps/recipe-search-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/recipe-search-e2e/cypress.json",
+            "devServerTarget": "recipe-search:serve",
+            "tsConfig": "apps/recipe-search-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "recipe-search:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/recipe-search-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["recipe-search"]
+    },
+    "tools-license-checker": {
+      "root": "apps/tools/license-checker",
+      "sourceRoot": "apps/tools/license-checker/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/tools/license-checker",
+            "main": "apps/tools/license-checker/src/main.ts",
+            "tsConfig": "apps/tools/license-checker/tsconfig.app.json",
+            "assets": ["apps/tools/license-checker/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/tools/license-checker/src/environments/environment.ts",
+                  "with": "apps/tools/license-checker/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "start": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run tools-license-checker:build",
+              "node ./dist/apps/tools/license-checker/main.js"
+            ],
+            "parallel": false
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/tools/license-checker/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/tools/license-checker"],
+          "options": {
+            "jestConfig": "apps/tools/license-checker/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    }
+  }
+}
