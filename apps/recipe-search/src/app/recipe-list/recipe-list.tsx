@@ -69,6 +69,7 @@ export function RecipeList(props: RecipeListProps) {
     diet?: string[]
     health?: string[]
   }>({ q: 'kale salad' })
+  console.log('🚀 ~ RecipeList ~ query:', query)
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -92,7 +93,7 @@ export function RecipeList(props: RecipeListProps) {
 
   const onChange = (
     e: React.SyntheticEvent,
-    value: (
+    _value: (
       | string
       | {
           type: string
@@ -100,6 +101,7 @@ export function RecipeList(props: RecipeListProps) {
         }
     )[]
   ) => {
+    const value = keepLastString(_value)
     const q = (value.find((item) => typeof item === 'string') as string) ?? ''
     const diet = value
       .filter((item) => typeof item !== 'string' && item.type === 'diet')
